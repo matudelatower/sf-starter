@@ -1,0 +1,78 @@
+/.web-server-pid
+/app/config/parameters.yml
+/build/
+/phpunit.xml
+/var/*
+!/var/cache
+/var/cache/*
+!var/cache/.gitkeep
+!/var/logs
+/var/logs/*
+!var/logs/.gitkeep
+!/var/sessions
+/var/sessions/*
+!var/sessions/.gitkeep
+!var/SymfonyRequirements.php
+/vendor/
+/web/bundles/
+/node_modules/
+env.json
+
+# -- Editores -----------------------------------------
+# vim
+.*.sw[a-z]
+*.un~
+Session.vim
+.netrwhist
+
+# eclipse
+*.pydevproject
+.project
+.metadata
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+.externalToolBuilders/
+*.launch
+.buildpath
+
+# phpstorm
+.idea/
+
+# textmate
+*.tmproj
+*.tmproject
+tmtags
+
+# sublimetext
+/*.sublime-project
+*.sublime-workspace
+
+# -- Sistemas Operativos ------------------------------
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+.*
+!.gitignore
+!.htaccess
+*~
+
+# Mac OS X
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
