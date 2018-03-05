@@ -16,5 +16,9 @@ Install:
 2. Install js dependencies
 
     `$ npm install`
-    
-3. Enjoy
+
+3. Copy `env.dist.json` to `env.json` and set your enviroment    
+
+4. `npm run build`
+
+5. Enjoy
