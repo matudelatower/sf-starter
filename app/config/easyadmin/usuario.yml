@@ -1,0 +1,35 @@
+easy_admin:
+    entities:
+        User:
+            class: AppBundle\Entity\User
+            label: 'Usuario'
+            list:
+                title: 'Listado de %%entity_label%%s'
+                actions:
+                    - { name: 'new', label: 'Nuevo %%entity_label%%' }
+                fields:
+                    - { property: 'username' }
+                    - { property: 'email' }
+                    - { property: 'enabled' }
+                    - { property: 'lastLogin' }
+            show:
+                title: '%%entity_label%% (#%%entity_id%%)'
+            form:
+                title:  'Nuevo %%entity_label%%'
+                fields:
+                    - username
+                    - email
+                    - enabled
+#                    - lastLogin
+                    # if administrators are allowed to edit users' passwords and roles, add this:
+                    - { property: 'plainPassword', type: 'text', type_options: { required: false } }
+                    - { property: 'roles', type: 'choice', type_options: { multiple: true, choices:
+                          { 'ROLE_USER': 'ROLE_USER',
+                            'ROLE_ADMIN': 'ROLE_ADMIN'
+                          }
+                        }
+                      }
+            edit:
+                title:  'Editar %%entity_label%%'
+            edit:
+                title:  'Editar %%entity_label%%'

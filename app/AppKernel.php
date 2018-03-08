@@ -19,6 +19,8 @@ class AppKernel extends Kernel
 
             //DE TERCEROS
             new \FOS\UserBundle\FOSUserBundle(),
+            new EasyCorp\Bundle\EasyAdminBundle\EasyAdminBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
 
 
             //PROYECTO

@@ -23,9 +23,11 @@
         "php": ">=5.5.9",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/orm": "^2.5",
+        "easycorp/easyadmin-bundle": "^1.17",
         "friendsofsymfony/user-bundle": "~2.0",
         "gedmo/doctrine-extensions": "^2.4",
         "incenteev/composer-parameter-handler": "^2.0",
+        "knplabs/knp-menu-bundle": "^2.0",
         "sensio/distribution-bundle": "^5.0.19",
         "sensio/framework-extra-bundle": "^5.0.0",
         "symfony/monolog-bundle": "^3.1.0",
@@ -48,10 +50,14 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ],
         "post-install-cmd": [
-            "@symfony-scripts"
+            "@symfony-scripts",
+            "npm install",
+            "php -r \"file_exists('env.json') || copy('env.json.dist', 'env.json');\"",
+            "npm run build"
         ],
         "post-update-cmd": [
-            "@symfony-scripts"
+            "@symfony-scripts",
+            "npm run dev"
         ]
     },
     "config": {
