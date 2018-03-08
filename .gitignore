@@ -17,6 +17,7 @@
 /web/bundles/
 /node_modules/
 env.json
+/web/build/
 
 # -- Editores -----------------------------------------
 # vim
