@@ -31,5 +31,3 @@ easy_admin:
                       }
             edit:
                 title:  'Editar %%entity_label%%'
-            edit:
-                title:  'Editar %%entity_label%%'

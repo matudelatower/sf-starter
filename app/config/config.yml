@@ -41,8 +41,8 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     globals:
-            site_name: %site_name%
-            version: %version%
+            site_name: '%site_name%'
+            version: '%version%'
 
 # Doctrine Configuration
 doctrine:
