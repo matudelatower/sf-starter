@@ -43,6 +43,8 @@ twig:
     globals:
             site_name: '%site_name%'
             version: '%version%'
+    form_themes:
+        - "bootstrap_3_layout.html.twig"
 
 # Doctrine Configuration
 doctrine:
