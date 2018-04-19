@@ -40,7 +40,7 @@ abstract class BaseClass
      *
      * @Gedmo\Blameable(on="create")
      *
-     * @ORM\ManyToOne(targetEntity="UsuariosBundle\Entity\Usuario")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $creadoPor;
@@ -50,7 +50,7 @@ abstract class BaseClass
      *
      * @Gedmo\Blameable(on="update")
      *
-     * @ORM\ManyToOne(targetEntity="UsuariosBundle\Entity\Usuario")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      * @ORM\JoinColumn(referencedColumnName="id")
      */
     protected $actualizadoPor;
