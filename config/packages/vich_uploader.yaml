@@ -1,0 +1,10 @@
+parameters:
+    app.path.user_image: '%env(APP_PUBLIC_PATH)%/uploads/images/user'
+
+vich_uploader:
+    db_driver: orm
+    mappings:
+        user_image:
+            uri_prefix:         '%app.path.user_image%'
+            upload_destination: '%kernel.root_dir%/../public/uploads/images/user'
+            namer: vich_uploader.namer_uniqid

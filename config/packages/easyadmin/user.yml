@@ -1,0 +1,35 @@
+easy_admin:
+    entities:
+        User:
+            class: App\Entity\User
+            show:
+                fields:
+                    - { property: 'username' }
+                    - { property: 'email' }
+                    - { property: 'imageName', type: 'image', base_path: '%app.path.user_image%' }
+                    - { property: 'enabled' }
+                    - { property: 'lastLogin' }
+            list:
+                fields:
+                    - { property: 'username' }
+                    - { property: 'email' }
+                    - { property: 'imageName', type: 'image', base_path: '%app.path.user_image%' }
+                    - { property: 'enabled' }
+                    - { property: 'lastLogin' }
+            form:
+                fields:
+                    - username
+                    - email
+                    - { property: 'imageFile', type: 'vich_image' }
+                    - enabled
+#                    - lastLogin
+                    # if administrators are allowed to edit users' passwords and roles, add this:
+                    - { property: 'plainPassword', type: 'text', type_options: { required: false } }
+#                    - { property: 'persona' }
+#                    - { property: 'club' }
+                    - { property: 'roles', type: 'choice', type_options: { multiple: true, choices:
+                          { 'ROLE_USER': 'ROLE_USER',
+                            'ROLE_ADMIN': 'ROLE_ADMIN',
+                          }
+                        }
+                      }
