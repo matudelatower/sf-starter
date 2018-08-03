@@ -18,6 +18,7 @@
   "devDependencies": {
     "@symfony/webpack-encore": "^0.19.0",
     "bootstrap-sass": "^3.3.7",
+    "copy-webpack-plugin": "^4.5.2",
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
     "node-sass": "^4.5.3",
@@ -28,6 +29,8 @@
     "webpack-notifier": "^1.5.1"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^11.0.1",
+    "admin-lte": "^2.4.3",
     "axios": "^0.17.1",
     "bootstrap": "^3.3.7",
     "bootstrap-colorpicker": "^2.5.1",
@@ -57,6 +60,7 @@
     "pace": "0.0.4",
     "raphael": "^2.2.7",
     "select2": "^4.0.3",
-    "slimscroll": "^0.9.1"
+    "slimscroll": "^0.9.1",
+    "vue-blockui": "^1.1.7"
   }
 }

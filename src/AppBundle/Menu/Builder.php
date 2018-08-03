@@ -61,6 +61,16 @@ class Builder implements ContainerAwareInterface
         }
 
 
+        $key = 'Usuarios';
+        $menu->addChild(
+                $key,
+                array(
+                    'route' => 'user_index',
+                )
+            )
+            ->setExtra('icon', 'fa fa-user');
+
+      
         return $menu;
     }
 }

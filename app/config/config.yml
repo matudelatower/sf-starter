@@ -9,6 +9,7 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: es
+    app.path.user_image: uploads/images/users
 
 framework:
     #esi: ~
@@ -43,6 +44,8 @@ twig:
     globals:
             site_name: '%site_name%'
             version: '%version%'
+            user_image: '%app.path.user_image%'
+
     form_themes:
         - "bootstrap_3_layout.html.twig"
 
@@ -108,3 +111,15 @@ stof_doctrine_extensions:
             timestampable: true
             blameable: true
             sluggable: true
+
+
+#vich uploader
+
+
+vich_uploader:
+    db_driver: orm
+    mappings:
+        user_image:
+            uri_prefix:         '%app.path.user_image%'
+            upload_destination: '%kernel.root_dir%/../web/%app.path.user_image%'
+            namer: vich_uploader.namer_uniqid

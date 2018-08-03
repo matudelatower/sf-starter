@@ -1,6 +1,6 @@
 // webpack.config.js
 var Encore = require('@symfony/webpack-encore');
-
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 var env = require('./env.json');
 
 Encore
@@ -11,14 +11,26 @@ Encore
     .setPublicPath(env.publicPath)
 
     // will create web/build/app.js and web/build/app.css
-    .addEntry('pre-js', './app/Resources/assets/js/pre.js')
-    .addEntry('common-js', './app/Resources/assets/js/common.js')
-    .addEntry('app', './app/Resources/assets/js/main.js')
+    .addEntry('js/main', './app/Resources/assets/js/main.js')
+    .addEntry('js/adminlte', './app/Resources/assets/js/adminlte.js')
+    .addEntry('js/charts', './app/Resources/assets/js/charts.js')
+    .addEntry('js/app', './app/Resources/assets/js/app.js')
+    .addEntry('js/login', './app/Resources/assets/js/login.js')
 
     .enableVueLoader()
 
-    .addStyleEntry('common-style', './app/Resources/assets/css/common.scss')
+    .addStyleEntry('css/main', './app/Resources/assets/css/main.scss')
+    .addStyleEntry('css/adminlte', './app/Resources/assets/css/adminlte.scss')
+    .addStyleEntry('css/charts', './app/Resources/assets/css/charts.scss')
+    .addStyleEntry('css/app', './app/Resources/assets/css/app.scss')
+    .addStyleEntry('css/login', './app/Resources/assets/css/login.scss')
     .addStyleEntry('global', './app/Resources/assets/css/global.scss')
+
+    // imgs
+    .addPlugin(new CopyWebpackPlugin([
+        // copies to {output}/static
+        { from: './app/Resources/assets/img', to: 'img' }
+    ]))
 
     // allow sass/scss files to be processed
     .enableSassLoader()
