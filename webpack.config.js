@@ -1,58 +1,108 @@
-// webpack.config.js
 var Encore = require('@symfony/webpack-encore');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-var env = require('./env.json');
+const Dotenv = require('dotenv-webpack');
+
+// Manually configure the runtime environment if not already configured yet by the "encore" command.
+// It's useful when you use tools that rely on webpack.config.js file.
+if (!Encore.isRuntimeEnvironmentConfigured()) {
+    Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev');
+}
+
+Encore.addPlugin(new Dotenv({
+    path: './.env.local'
+}))
 
 Encore
-// the project directory where all compiled assets will be stored
-    .setOutputPath('web/build/')
+    // directory where compiled assets will be stored
+    .setOutputPath('public/build/')
+    // public path used by the web server to access the output path
+    .setPublicPath('/build')
+    // only needed for CDN's or sub-directory deploy
+    //.setManifestKeyPrefix('build/')
 
-    // the public path used by the web server to access the previous directory
-    .setPublicPath(env.publicPath)
+    /*
+     * ENTRY CONFIG
+     *
+     * Add 1 entry for each "page" of your app
+     * (including one that's included on every page - e.g. "app")
+     *
+     * Each entry will result in one JavaScript file (e.g. app.js)
+     * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
+     */
+    .addEntry('app', './assets/js/app.js')
+    .addEntry('admin-lte', './assets/js/base-admin-lte.js')
+    .addEntry('login', './assets/js/login.js')
+    .addEntry('js/functions', './assets/js/functions.js')
 
-    // will create web/build/app.js and web/build/app.css
-    .addEntry('js/main', './app/Resources/assets/js/main.js')
-    .addEntry('js/adminlte', './app/Resources/assets/js/adminlte.js')
-    .addEntry('js/charts', './app/Resources/assets/js/charts.js')
-    .addEntry('js/app', './app/Resources/assets/js/app.js')
-    .addEntry('js/login', './app/Resources/assets/js/login.js')
+    .copyFiles([
+        {
+            from: './node_modules/ckeditor/',
+            to: 'ckeditor/[path][name].[ext]',
+            pattern: /\.(js|css)$/,
+            includeSubdirectories: false
+        },
+        {from: './node_modules/ckeditor/adapters', to: 'ckeditor/adapters/[path][name].[ext]'},
+        {from: './node_modules/ckeditor/lang', to: 'ckeditor/lang/[path][name].[ext]'},
+        {from: './node_modules/ckeditor/plugins', to: 'ckeditor/plugins/[path][name].[ext]'},
+        {from: './node_modules/ckeditor/skins', to: 'ckeditor/skins/[path][name].[ext]'}
+    ])
 
-    .enableVueLoader()
+    .addStyleEntry('css/admin-lte', './assets/css/base-admin-lte.scss')
+    .addStyleEntry('css/login', './assets/css/login.scss')
 
-    .addStyleEntry('css/main', './app/Resources/assets/css/main.scss')
-    .addStyleEntry('css/adminlte', './app/Resources/assets/css/adminlte.scss')
-    .addStyleEntry('css/charts', './app/Resources/assets/css/charts.scss')
-    .addStyleEntry('css/app', './app/Resources/assets/css/app.scss')
-    .addStyleEntry('css/login', './app/Resources/assets/css/login.scss')
-    .addStyleEntry('global', './app/Resources/assets/css/global.scss')
+    .copyFiles({
+        from: './assets/images',
+        // optional target path, relative to the output dir
+        to: 'images/[path][name].[ext]',
+        // if versioning is enabled, add the file hash too
+        //to: 'images/[path][name].[hash:8].[ext]',
+        // only copy files matching this pattern
+        //pattern: /\.(png|jpg|jpeg)$/
+    })
 
-    // imgs
-    .addPlugin(new CopyWebpackPlugin([
-        // copies to {output}/static
-        { from: './app/Resources/assets/img', to: 'img' }
-    ]))
+    // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
+    .splitEntryChunks()
 
-    // allow sass/scss files to be processed
+    // will require an extra script tag for runtime.js
+    // but, you probably want this, unless you're building a single-page app
+    .enableSingleRuntimeChunk()
+
+    /*
+     * FEATURE CONFIG
+     *
+     * Enable & configure other features below. For a full
+     * list of features, see:
+     * https://symfony.com/doc/current/frontend.html#adding-more-features
+     */
+    .cleanupOutputBeforeBuild()
+    .enableBuildNotifications()
+    .enableSourceMaps(!Encore.isProduction())
+    // enables hashed filenames (e.g. app.abc123.css)
+    .enableVersioning(Encore.isProduction())
+
+    // enables @babel/preset-env polyfills
+    .configureBabelPresetEnv((config) => {
+        config.useBuiltIns = 'usage';
+        config.corejs = 3;
+    })
+
+    // enables Sass/SCSS support
     .enableSassLoader()
-    .enableLessLoader()
 
+    // uncomment if you use TypeScript
+    //.enableTypeScriptLoader()
+
+    // uncomment to get integrity="..." attributes on your script & link tags
+    // requires WebpackEncoreBundle 1.4 or higher
+    //.enableIntegrityHashes(Encore.isProduction())
+
+    // uncomment if you're having problems with a jQuery plugin
     .autoProvidejQuery()
 
-    .configureDefinePlugin((options) => {
-    options.baseUrl = JSON.stringify(env.baseUrl);
-})
+    // .enableVueLoader()
 
-.enableSourceMaps(!Encore.isProduction())
-
-// empty the outputPath dir before each build
-    .cleanupOutputBeforeBuild()
-
-    // show OS notifications when builds finish/fail
-    .enableBuildNotifications()
-
-// create hashed filenames (e.g. app.abc123.css)
-// .enableVersioning()
+// uncomment if you use API Platform Admin (composer req api-admin)
+//.enableReactPreset()
+//.addEntry('admin', './assets/js/admin.js')
 ;
 
-// export the final configuration
 module.exports = Encore.getWebpackConfig();

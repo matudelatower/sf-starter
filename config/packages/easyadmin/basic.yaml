@@ -1,0 +1,19 @@
+easy_admin:
+  #    disabled_actions: ['delete']
+  site_name: '%env(APP_NAME)%'
+  show:
+    max_results: 20
+  list:
+    actions:
+      - { name: 'show', icon: 'eye', label: '' }
+      - { name: 'edit', icon: 'pencil', label: '' }
+    #            - { name: 'delete', icon: 'trash', label: '' }
+
+  design:
+    brand_color: '#%env(APP_COLOR)%'
+    #            templates:
+    #                layout: 'easyadmin/default/layout.html.twig'
+    form_theme:
+      - '@EasyAdmin/form/bootstrap_4.html.twig'
+    menu:
+      - { label: 'Usuarios', entity: User, icon: 'user', permission: 'ROLE_ADMIN' }
